@@ -5,13 +5,15 @@ import dotenv from "dotenv";
 // database function
 import connectDB from "./config/db";
 
+//import routes
+import authRoutes from "./routes/authRoutes";
+
 dotenv.config();
 
 // connect to database
 connectDB();
 
 const app = express();
-
 
 // Init Middleware
 app.use(express.json());
@@ -23,7 +25,8 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
-
+// routes
+app.use("/api/auth", authRoutes);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
