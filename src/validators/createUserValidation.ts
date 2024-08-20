@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+
 const createUserValidation = () => {
   return [
     body("firstName")
