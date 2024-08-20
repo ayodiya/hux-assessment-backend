@@ -2,7 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
-import { createUser } from "../controllers/AuthController";
+import { createUser } from "../controllers/authController";
 import validate from "../validators/validate";
 import createUserValidation from "../validators/createUserValidation";
 
