@@ -1,6 +1,9 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
+dotenv.config();
 export interface IUser extends Document {
   firstName: string;
   lastName: string;
@@ -8,6 +11,12 @@ export interface IUser extends Document {
   password: string;
   phoneNo: string;
   comparePassword(candidatePassword: string): Promise<boolean>;
+  generateAuthToken(): Promise<string>;
+}
+
+const secretKey = process.env.JWT_KEY;
+if (!secretKey) {
+  throw new Error("JWT_KEY is not defined in the environment variables");
 }
 
 const userSchema: Schema<IUser> = new Schema<IUser>(
@@ -59,6 +68,25 @@ userSchema.methods.comparePassword = async function (
   candidatePassword: string,
 ): Promise<boolean> {
   return await bcrypt.compare(candidatePassword, this.password);
+};
+
+// userschema to generate token
+userSchema.methods.generateAuthToken = async function () {
+  const token = jwt.sign(
+    {
+      _id: this._id,
+      email: this.email,
+      firstName: this.firstName,
+      lastName: this.lastName,
+    },
+    secretKey,
+    {
+      issuer: "ayodiya",
+      algorithm: "HS256",
+      expiresIn: "7d",
+    },
+  );
+  return token;
 };
 
 const User: Model<IUser> = mongoose.model<IUser>("User", userSchema);
