@@ -7,6 +7,7 @@ import connectDB from "./config/db";
 
 //import routes
 import authRoutes from "./routes/authRoutes";
+import contactRoutes from "./routes/contactRoutes";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get("/", (req: Request, res: Response) => {
 
 // routes
 app.use("/api/auth", authRoutes);
+app.use("/api/contact", contactRoutes);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
