@@ -1,7 +1,5 @@
 import express from "express";
 
-const router = express.Router();
-
 import validate from "../validators/validate";
 import addContactValidation from "../validators/addContactValidation";
 import authenticateToken from "../middleware/authenticateToken";
@@ -12,6 +10,8 @@ import {
   editContact,
   deleteContact,
 } from "../controllers/contactController";
+
+const router = express.Router();
 
 router.post(
   "/add",
