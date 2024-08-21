@@ -10,6 +10,7 @@ import {
   allContacts,
   singleContact,
   editContact,
+  deleteContact,
 } from "../controllers/contactController";
 
 router.post(
@@ -21,6 +22,7 @@ router.post(
 );
 router.get("/all", authenticateToken, allContacts);
 router.get("/:slug", authenticateToken, singleContact);
-router.patch("/:slug", authenticateToken, editContact);
+router.patch("/:slug", addContactValidation(), authenticateToken, editContact);
+router.delete("/:slug", authenticateToken, deleteContact);
 
 export default router;
