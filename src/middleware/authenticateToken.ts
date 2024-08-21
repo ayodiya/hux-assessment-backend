@@ -12,7 +12,7 @@ if (!secretKey) {
 declare global {
   namespace Express {
     interface Request {
-      user?: JwtPayload & { token: string; email: string }; // Include token in the user type
+      user?: JwtPayload & { token: string; email: string; _id: string }; // Include token in the user type
     }
   }
 }
@@ -39,7 +39,7 @@ const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
       req.user = {
         ...user,
         token,
-      } as JwtPayload & { token: string; email: string }; // Ensure the user property has the token
+      } as JwtPayload & { token: string; email: string; _id: string }; // Ensure the user property has the token
     }
 
     next();
