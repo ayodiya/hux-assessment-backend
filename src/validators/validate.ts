@@ -11,7 +11,6 @@ const validate = (req: Request, res: Response, next: NextFunction): void => {
 
   errors.array().map((err) => {
     const error = err as ValidationError & { path: string; msg: string };
-    console.log("this is fhf", error);
     extractedErrors.push({ [error.path]: error.msg });
   });
 
