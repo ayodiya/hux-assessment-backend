@@ -1,7 +1,7 @@
-import slugify from "slugify";
 import { Request, Response } from "express";
 
 import Contact from "../models/Contact";
+import getSlug from "../utils/getSlug";
 
 export const addContact = async (req: Request, res: Response) => {
   const { firstName, lastName, email, phoneNo } = req.body;
@@ -23,7 +23,7 @@ export const addContact = async (req: Request, res: Response) => {
         lastName,
         email,
         phoneNo,
-        slug: slugify(`${firstName} ${lastName}`),
+        slug: getSlug(firstName),
       });
 
       res.status(201).json({
@@ -94,7 +94,7 @@ export const editContact = async (req: Request, res: Response) => {
       //change contact in database and return edited data
       const editedContact = await Contact.findOneAndUpdate(
         { slug },
-        { firstName, lastName, email, phoneNo },
+        { firstName, lastName, email, phoneNo, slug: getSlug(firstName) },
         {
           new: true,
         },
