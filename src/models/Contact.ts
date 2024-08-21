@@ -1,10 +1,9 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import mongoose, { Schema, Document, Model, Types } from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config();
 export interface IContact extends Document {
+  userId: Types.ObjectId;
   firstName: string;
   lastName: string;
   email?: string;
@@ -14,6 +13,11 @@ export interface IContact extends Document {
 
 const contactSchema: Schema<IContact> = new Schema<IContact>(
   {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     firstName: {
       type: String,
       required: true,
