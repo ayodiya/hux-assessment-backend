@@ -9,6 +9,7 @@ export interface IContact extends Document {
   lastName: string;
   email?: string;
   phoneNo: string;
+  slug: string;
 }
 
 const contactSchema: Schema<IContact> = new Schema<IContact>(
@@ -26,6 +27,10 @@ const contactSchema: Schema<IContact> = new Schema<IContact>(
       required: false,
     },
     phoneNo: {
+      type: String,
+      required: true,
+    },
+    slug: {
       type: String,
       required: true,
     },
