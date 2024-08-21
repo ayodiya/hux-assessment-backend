@@ -39,7 +39,6 @@ export const addContact = async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
-    console.log("this isfhf", error);
     res.status(500).json({
       status: "error",
       message: "Server error, please try again",
@@ -130,6 +129,22 @@ export const editContact = async (req: Request, res: Response) => {
         editedContact,
       });
     }
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Server error, please try again",
+    });
+  }
+};
+
+export const deleteContact = async (req: Request, res: Response) => {
+  if (!req.user || !req.user._id) {
+    return res.status(400).json({ msg: "User is not authenticated" });
+  }
+
+  const { _id } = req.user;
+
+  try {
   } catch (error) {
     res.status(500).json({
       status: "error",
