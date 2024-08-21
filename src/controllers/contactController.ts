@@ -36,3 +36,19 @@ export const addContact = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const allContacts = async (req: Request, res: Response) => {
+  try {
+    const allContacts = await Contact.find({});
+
+    res.status(200).json({
+      status: "success",
+      allContacts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Server error, please try again",
+    });
+  }
+};
