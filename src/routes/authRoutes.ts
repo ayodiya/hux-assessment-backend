@@ -14,6 +14,6 @@ import {
 
 router.post("/create-user", createUserValidation(), validate, createUser);
 router.post("/login", loginUserValidation(), validate, loginUser);
-router.get("/logout", authenticateToken, logoutUser);
+router.delete("/logout", authenticateToken, logoutUser);
 
 export default router;
