@@ -1,7 +1,5 @@
 import express from "express";
 
-const router = express.Router();
-
 import validate from "../validators/validate";
 import createUserValidation from "../validators/createUserValidation";
 import loginUserValidation from "../validators/loginUserValidation";
@@ -11,6 +9,8 @@ import {
   loginUser,
   logoutUser,
 } from "../controllers/authController";
+
+const router = express.Router();
 
 router.post("/create-user", createUserValidation(), validate, createUser);
 router.post("/login", loginUserValidation(), validate, loginUser);
