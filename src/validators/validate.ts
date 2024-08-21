@@ -10,8 +10,8 @@ const validate = (req: Request, res: Response, next: NextFunction): void => {
   const extractedErrors: { [key: string]: string }[] = [];
 
   errors.array().map((err) => {
-    const error = err as ValidationError & { param: string; msg: string };
-    extractedErrors.push({ [error.param]: error.msg });
+    const error = err as ValidationError & { path: string; msg: string };
+    extractedErrors.push({ [error.path]: error.msg });
   });
 
   res.status(422).json({

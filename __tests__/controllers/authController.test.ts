@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
-import { createUser, loginUser } from "../../src/controllers/authController";
 import User from "../../src/models/User";
 import Token from "../../src/models/Token";
+import { createUser, loginUser } from "../../src/controllers/authController";
 
 jest.mock("../../src/models/User");
 jest.mock("../../src/models/Token");
