@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { addContact } from "../../src/controllers/contactController";
+
 import Contact from "../../src/models/Contact";
+import { addContact } from "../../src/controllers/contactController";
 
 jest.mock("../../src/models/Contact");
 
