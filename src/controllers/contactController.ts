@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import { Request, Response } from "express";
 
 import Contact from "../models/Contact";
@@ -22,6 +23,7 @@ export const addContact = async (req: Request, res: Response) => {
         lastName,
         email,
         phoneNo,
+        slug: slugify(`${firstName} ${lastName}`),
       });
 
       res.status(201).json({
