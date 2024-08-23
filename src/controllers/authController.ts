@@ -15,7 +15,7 @@ export const createUser = async (req: Request, res: Response) => {
     }
 
     //create new user
-    await User.create({
+    const newUser = await User.create({
       firstName,
       lastName,
       email,
@@ -23,9 +23,19 @@ export const createUser = async (req: Request, res: Response) => {
       password,
     });
 
+    const token = await newUser.generateAuthToken();
+
+    //save token to database
+    await Token.create({
+      userId: newUser._id,
+      token,
+    });
+
     res.status(201).json({
       status: "success",
       message: `User registered successfully`,
+      token,
+      userDetails: newUser,
     });
   } catch (error) {
     res.status(500).json({
@@ -61,11 +71,12 @@ export const loginUser = async (req: Request, res: Response) => {
 
       res.status(200).json({
         status: "success",
-        message: `User logged in  successfully`,
+        message: `User logged in successfully`,
         token,
+        userDetails: userExists,
       });
     } else {
-      return res.status(400).json({ msg: "Password not correct" });
+      return res.status(400).json({ message: "Password not correct" });
     }
   } catch (error) {
     res.status(500).json({
