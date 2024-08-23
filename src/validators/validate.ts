@@ -7,11 +7,11 @@ const validate = (req: Request, res: Response, next: NextFunction): void => {
     return next();
   }
 
-  const extractedErrors: { [key: string]: string }[] = [];
+  const extractedErrors: string[] = [];
 
   errors.array().map((err) => {
     const error = err as ValidationError & { path: string; msg: string };
-    extractedErrors.push({ [error.path]: error.msg });
+    extractedErrors.push(`${error.path}: ${error.msg}`);
   });
 
   res.status(422).json({
