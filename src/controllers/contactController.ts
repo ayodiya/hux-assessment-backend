@@ -87,7 +87,7 @@ export const singleContact = async (req: Request, res: Response) => {
     } else {
       return res.status(200).json({
         status: "success",
-        contactExists,
+        contactDetails: contactExists,
       });
     }
   } catch (error) {
@@ -127,6 +127,7 @@ export const editContact = async (req: Request, res: Response) => {
       return res.status(200).json({
         status: "success",
         editedContact,
+        message: "Edited successfully",
       });
     }
   } catch (error) {
@@ -143,8 +144,16 @@ export const deleteContact = async (req: Request, res: Response) => {
   }
 
   const { _id } = req.user;
+  const { slug } = req.params;
 
   try {
+    //check if contact exists
+    await Contact.findOneAndDelete({ slug, userId: _id });
+
+    return res.status(200).json({
+      status: "success",
+      message: "Delete successfully",
+    });
   } catch (error) {
     res.status(500).json({
       status: "error",
